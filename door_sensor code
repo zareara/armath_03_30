@@ -1,0 +1,33 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+
+// replace these numbers with the digital pins you are connected to
+int echo_1 = 2;
+int echo_2 = 4;
+int trigger_1 = 3;
+int trigger_2 = 5;
+
+// setup
+void setup() {
+  LiquidCrystal_I2C lcd(0x27,  16, 2);
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
+  lcd.home();
+  lcd.print("Starting...");
+    
+}
+
+void loop() {
+  // trigger the sensors and wait for a response
+  digitalWrite(trigger_1, HIGH);
+  digitalWrite(trigger_2, HIGH);
+  delayMicroseconds(10);
+  double distance_1 = (pulseIn(echo_1, HIGH)/5)/29.1;
+  double distance_2 = (pulseIn(echo_2, HIGH)/5)/29.1;
+  // start a counter for people (int variable)
+  //if the distance is less than some amount (object is close enough)
+  // either increase or decrease a count based on whether the exit or 
+  // entrance distance has been triggered
+}
