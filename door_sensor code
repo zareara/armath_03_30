@@ -8,6 +8,8 @@ int echo_2 = 4;
 int trigger_1 = 3;
 int trigger_2 = 5;
 
+int people_count = 0;
+
 // setup
 void setup() {
   LiquidCrystal_I2C lcd(0x27,  16, 2);
@@ -25,9 +27,22 @@ void loop() {
   digitalWrite(trigger_2, HIGH);
   delayMicroseconds(10);
   double distance_1 = (pulseIn(echo_1, HIGH)/5)/29.1;
+  delay(1000);
   double distance_2 = (pulseIn(echo_2, HIGH)/5)/29.1;
   // start a counter for people (int variable)
   //if the distance is less than some amount (object is close enough)
   // either increase or decrease a count based on whether the exit or 
   // entrance distance has been triggered
+
+  if (distance_1 < 3){
+    people_count += 1;
+  }
+
+  if (distance_2 < 3){
+    people_count -= 1;
+  }
+
+  lcd.clear();
+  lcd.home();
+  lcd.print("People Count: " + people_count);
 }
